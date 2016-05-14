@@ -1,14 +1,13 @@
-function Cell(x, y, player) {
-  // Assigning Player to Cell
-  if (player !== null) {
+function Cell(x, chip) {
+  // Assigning chip to Cell
+  if (chip !== null) {
     this.occupied = true;
-    this.player = player;
+    this.chip = chip;
   } else {
     this.occupied = false;
   }
 
   // Assigning Coords for Cell
   this.x = x;
-  this.y = y;
 }
 
