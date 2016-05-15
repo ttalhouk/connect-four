@@ -1,4 +1,5 @@
 #board > div.cell{
+
   border: solid 1px black;
   height:80px;
   width:80px;
@@ -13,6 +14,7 @@
 	background-color: black;
 	display: inline-block;
 	padding: 5px;
+  ali  : center;
 }
 
 #red {
