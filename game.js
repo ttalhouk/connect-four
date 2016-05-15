@@ -1,32 +1,57 @@
-function Game() {
-  this.win = false;
-  this.renderBoard();
-  var gameBoard = new Board();
-  var player1 = new Player("Kelson", "blue");
-  var player2 = new Player("Talal", "red");
+$(document).ready(function(){
 
+  function Game(){
+    this.win = false;
+    this.renderBoard();
+    var gameBoard = new Board();
+    var player1 = new Player("Kelson", "blue");
+    var player2 = new Player("Talal", "red");
+    var playerTurns = 1
   // WHILE winner is not declared
   // Players take turns
-    $("div").on('click','.cell', function(){
-      chosenColumn = $(this).attr("id").parseInt()
-      var playerTurns = 1
-      if (playerTurns % 2 === 0) {
-        var currentPlayer = player1
-      } else {
-        var currentPlayer = player2
+  $("div").on('click','.cell', function(){
+    if ($(this).attr('id') !== ('red' || 'blue')){
+      chosenColumn(parseInt($(this).attr("id")))
+    }
+  })
+
+
+  var chosenColumn = function(column){
+    if (playerTurns % 2 === 0) {
+      var currentPlayer = player1
+    } else {
+      var currentPlayer = player2
+    }
+    playerTurns++;
+    console.log(playerTurns)
+    var dropLocation = checkBelow(column, gameBoard)
+    console.log(dropLocation)
+    var newChip = new Chip(dropLocation, currentPlayer)
+    gameBoard[dropLocation] = new Cell(dropLocation, newChip)
+    console.log(gameBoard)
+
+    updateBoard(dropLocation, currentPlayer)
+
+    function checkBelow(col, board){
+      while ((col + 7) < 42){
+        var checkedCell = board.cells[col + 7]
+        console.log(checkedCell.occupied)
+        if (checkedCell.occupied === false){
+          col += 7;
+        } else {
+          return col;
+        }
+
       }
-      playerTurns++;
-      var newChip = new Chip(parseInt(chosenColumn), currentPlayer)
-      var dropLocation = newChip.checkBelow(gameBoard)
-      gameBoard[dropLocation] = new Cell(dropLocation, newChip)
-      this.updateBoard(dropLocation, currentPlayer)
-    })
+      return col
+    }
 
-  // this.checkIfWon = function() {
+  function updateBoard(location, player){
+      $("#"+ location).replaceWith('<div id=' + player.color +'></div>');
+    }
+  }
+}
 
-  // }
-
-};
 
 Game.prototype.renderBoard = function(){
   for(var i = 0; i < 6; i++){
@@ -38,16 +63,6 @@ Game.prototype.renderBoard = function(){
   }
 }
 
-Game.prototype.updateBoard = function(location, player){
-  $("#"+ location).replace('<span id=' + player.color +'></span>');
-}
-
-Game.prototype.chooseColumn = function(){
-  $("div").on('click', function(){
-    return $(this).attr("id");
-  })
-}
-
 
 new Game()
-
+});
