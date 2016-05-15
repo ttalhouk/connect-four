@@ -9,3 +9,7 @@ Chip.prototype.checkColor = function(){
   this.player.color;
 }
 
+Chip.prototype.checkName = function(){
+  this.player.name;
+}
+
