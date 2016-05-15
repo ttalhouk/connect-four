@@ -1,8 +1,10 @@
-div span {
-  height: 20px;
-  width: 20px;
+#board > div {
   border: solid 1px black;
+  height:80px;
+  width:80px;
+  display: inline-block;
 }
+
 
 #red {
   color: red;

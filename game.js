@@ -1,14 +1,13 @@
 function Game() {
   this.win = false;
-
+  this.renderBoard();
   var gameBoard = new Board();
-  this.renderBoard(gameBoard);
   var player1 = new Player("Kelson", "blue");
   var player2 = new Player("Talal", "red");
 
   // WHILE winner is not declared
   // Players take turns
-    $("span").on('click', function(){
+    $("div").on('click','.cell', function(){
       chosenColumn = $(this).attr("id").parseInt()
       var playerTurns = 1
       if (playerTurns % 2 === 0) {
@@ -23,23 +22,24 @@ function Game() {
       this.updateBoard(dropLocation, currentPlayer)
     })
 
-  this.checkIfWon = function() {
+  // this.checkIfWon = function() {
 
-  }
+  // }
 
-}
+};
 
 Game.prototype.renderBoard = function(){
-  for(var i = 0; i < 7; i++){
-    for(var j = 0; j < 6; j++){
-      $("#board").append('<span id=' + (i+(j*7)) + '></span>');
+  for(var i = 0; i < 6; i++){
+    for(var j = 0; j < 7; j++){
+
+      $("#board").append("<div class='cell' id=" + (j+(i*7)) + "></div>");
     }
-    $("span").last().after("</br>")
+    $("div").last().after("</br>")
   }
 }
 
 Game.prototype.updateBoard = function(location, player){
-  $("#"+ location).replace('<span id="' + player.color +'"></span>');
+  $("#"+ location).replace('<span id=' + player.color +'></span>');
 }
 
 Game.prototype.chooseColumn = function(){
@@ -50,3 +50,4 @@ Game.prototype.chooseColumn = function(){
 
 
 new Game()
+
