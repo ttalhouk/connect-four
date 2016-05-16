@@ -7,16 +7,14 @@ $(document).ready(function(){
     var player1 = new Player("Player 1", "blue");
     var player2 = new Player("Player 2", "red");
     var playerTurns = 1
-    this.win = checkWin(gameBoard);
-  // WHILE winner is not declared
-  // Players take turns
-  if (this.win == false){
+
     $("div").on('click','.cell', function(){
+      if (checkWin(gameBoard) === false){
       if ($(this).attr('id') !== ('red' || 'blue')){
         chosenColumn(parseInt($(this).attr("id")))
       }
-    })
-  }
+    }
+  })
   var chosenColumn = function(column){
     if (playerTurns % 2 === 0) {
       var currentPlayer = player2
