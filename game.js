@@ -1,12 +1,13 @@
 $(document).ready(function(){
 
   function Game(){
-    this.win = false;
+
     this.renderBoard();
     var gameBoard = new Board();
     var player1 = new Player("Player 1", "blue");
     var player2 = new Player("Player 2", "red");
     var playerTurns = 1
+    this.win = checkWin(gameBoard);
   // WHILE winner is not declared
   // Players take turns
   if (this.win == false){
@@ -31,7 +32,6 @@ $(document).ready(function(){
     gameBoard.cells[dropLocation] = new Cell(dropLocation, newChip)
     updateBoard(dropLocation, currentPlayer)
     var winner = checkWin(gameBoard)
-    console.log(winner)
     if (winner){
       $("#player").text(currentPlayer.name + " Wins").css({'font-size':'48px', 'text-decoration':'blink', 'color': currentPlayer.color })
     }
@@ -53,13 +53,12 @@ $(document).ready(function(){
     function updateBoard(location, player){
       $("#"+ location).replaceWith('<div id=' + player.color +'></div>');
     }
-
-    function checkWin(board){
-      if (checkRow(board) || checkCol(board) || checkDiagonal(board)){
-        return true
-      }
-      return false
+  }
+  function checkWin(board){
+    if (checkRow(board) || checkCol(board) || checkDiagonal(board)){
+      return true
     }
+    return false
   }
 
   function checkRow(board){
